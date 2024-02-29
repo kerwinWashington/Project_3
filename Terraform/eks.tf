@@ -2,13 +2,9 @@
 resource "aws_eks_cluster" "example" {
   name     = "Team-Helm"
   role_arn = aws_iam_role.example.arn
-#   count    = var.public_subnet_count
 
   vpc_config {
-    # subnet_ids = [aws_subnet.public[count.index].id]
     subnet_ids = [aws_subnet.public[0].id, aws_subnet.public[1].id]
-    # subnet_ids = [aws_subnet.example1.id, aws_subnet.example2.id]
-
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -63,8 +59,7 @@ resource "aws_eks_node_group" "example" {
   cluster_name    = aws_eks_cluster.example.name
   node_group_name = "Team-Helm"
   node_role_arn   = aws_iam_role.example.arn
-  count    = var.public_subnet_count
-  subnet_ids      = aws_subnet.public[count.index].id
+  subnet_ids      = [ aws_subnet.public[0].id, aws_subnet.public[1].id ]
 
   scaling_config {
     desired_size = 2
@@ -94,7 +89,7 @@ resource "aws_iam_role" "example" {
       Action = "sts:AssumeRole"
       Effect = "Allow"
       Principal = {
-        Service = "ec2.amazonaws.com"
+        Service = ["ec2.amazonaws.com", "eks.amazonaws.com"],
       }
     }]
     Version = "2012-10-17"
@@ -115,3 +110,4 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryRea
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.example.name
 }
+
