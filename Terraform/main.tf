@@ -9,7 +9,7 @@ terraform {
 
 provider "aws" {
   # Configuration options
-  profile = "kwashingtontf"
+  profile = "<profileName>"
   default_tags {
     tags = {
         Name = "Team-Helm"
