@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+</head>
+<style>
+  table {
+     font-family: cursive;
+     border-collapse: collapse;
+     width: 85%;
+     
+  }
+  td, th {
+     border: 1px solid #111111;
+     text-align: center;
+     padding: 8px;
+  }
+  tr:nth-child(odd) {
+     background-color: #4b9ce8;
+  }
+  h1{ 
+     text-align: center;
+     font-style: italic; 
+     font-size: 55px;
+     text-decoration: underline;
+     color: rgb(225, 127, 211);  
+     padding: 8px;
+     background-color: rgb(98, 96, 96);
+  }
+  h2 {
+     text-align: center;
+     color: #b78fa2;
+  }
+  h3 {
+     text-align: center;
+     font-size: 35px;
+     font-style: italic; 
+     color: rgb(225, 127, 211); 
+     padding: 8px;
+     background-color: rgb(98, 96, 96);
+   }
+  h4 {
+    text-align: right;
+    font-size: 20px;
+    font-style: italic; 
+    color: rgb(188, 149, 149);  
+    padding: 8px;
+  }
+  h5 {
+     text-align: center;
+     font-size: 35px;
+     font-style: italic; 
+     color: rgb(225, 127, 211); 
+     padding: 8px;
+     background-color: rgb(98, 96, 96);
+   }
+   ._text {
+     text-align: left;
+     color: rgb(255, 230, 8);
+   }
+   .navbar {
+     background-color: rgb(155, 6, 6) !important;
+     color: rgb(148, 70, 56);
+     border-radius: 25px;
+     padding: 15px;    
+   }
+   body {
+     background-color: rgb(233, 230, 230);
+   }
+   p{
+     font-size: 18pt;
+     font-family: 'Times New Roman', Times, serif
+     color: #000000; 
+   }
+   </style>
+<body>
+    <!--  -->
+    <h1>How do you really feel?</h1>
+  <div>
+    <h2>Dont wonder what their sentiment was, we have the answer!</h2>
+    <div>
+    <center><img width="800" src="https://www.icegif.com/wp-content/uploads/2022/09/icegif-379.gif"</center>
+  </div>
+  <div>
+    <h3>Analyse their toxic messages</h3>
+  </div>
+  <form id="sentimentForm">
+    <label for="textInput">Enter your text:</label><br>
+    <textarea id="textInput" name="textInput" rows="4" cols="50"></textarea><br><br>
+    <button type="button" onclick="submitText()">Submit</button>
+</form>
+<div id="result"></div>
+<script>
+  function submitText() {
+      var text = document.getElementById("textInput").value;
+      var data = JSON.stringify({ "text": text });
+
+      $.ajax({
+          url: 'https://st8nu1wcb9.execute-api.us-east-1.amazonaws.com/prod',
+          type: 'POST',
+          contentType: 'application/json',
+          data: data,
+          success: function(response) {
+              // Display sentiment analysis result
+              document.getElementById("result").innerText = "Sentiment: " + response.sentiment;
+          },
+          error: function(xhr, status, error) {
+              // Handle error
+              console.error('Error:', error);
+              document.getElementById("result").innerText = "Error occurred. Please try again.";
+          }
+      });
+  }
+</script>
+<div>
+  <h5>Generate a toxic response!</h5>
+</div>
+<button type="button" class="btn btn-secondary" disabled>Toxic Response</button>
+<div>
+  <h4>stay toxic girlies! </h4>
+</div>
