@@ -14,6 +14,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 CMD ["python", "sentiment_analysis.py"]
 
 
-aws lambda update-function-configuration \
-    --function-name SentimentAnalysisFunction \
-    --environment Variables="{AWS_REGION=us-east-1, COMPREHEND_ENDPOINT_URL=https://comprehend-custom-endpoint-url}"
