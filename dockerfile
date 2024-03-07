@@ -10,7 +10,8 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Run the sentiment analysis application
-CMD ["python", "sentiment_analysis.py"]
+# Run the Lambda function when the container starts
+CMD ["python", "lambda_function.py"]
+
 
 
