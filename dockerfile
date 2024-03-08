@@ -10,6 +10,9 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Expose port 80
+EXPOSE 80
+
 # Run the Lambda function when the container starts
 CMD ["python", "lambda_function.py"]
 

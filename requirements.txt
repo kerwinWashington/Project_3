@@ -1,1 +1,2 @@
 boto3==1.18.63
+simplejson==3.19.2
